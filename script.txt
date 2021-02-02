@@ -1,0 +1,15 @@
+## start by docker compose ##
+docker-compose -f redis-sentinel-pw.yml up -d
+
+## start by command ##
+*** view config sentinel
+more /bitnami/redis-sentinel/conf/sentinel.conf
+
+docker run -d --name anyid_redis_wt_pw_master -p 32014:32014 -e REDIS_PASSWORD=P@ssw0rd -e REDIS_REPLICATION_MODE=master -v ~/../../mnt/d/My_Work/Docker_Container/Script/Redis/Config/redis-32014.conf:/opt/bitnami/redis/mounted-etc/redis.conf bitnami/redis:6.0.4
+docker run -d --name anyid_redis_wt_pw_slave_1 -p 32015:32015 -e REDIS_MASTER_PASSWORD=P@ssw0rd -e REDIS_PASSWORD=P@ssw0rd -e REDIS_REPLICATION_MODE=slave -e REDIS_MASTER_HOST=172.31.48.1 -e REDIS_MASTER_PORT_NUMBER=32014 -v ~/../../mnt/d/My_Work/Docker_Container/Script/Redis/Config/redis-32015.conf:/opt/bitnami/redis/mounted-etc/redis.conf bitnami/redis:6.0.4
+docker run -d --name anyid_redis_wt_pw_slave_2 -p 32016:32016 -e REDIS_MASTER_PASSWORD=P@ssw0rd -e REDIS_PASSWORD=P@ssw0rd -e REDIS_REPLICATION_MODE=slave -e REDIS_MASTER_HOST=172.31.48.1 -e REDIS_MASTER_PORT_NUMBER=32014 -v ~/../../mnt/d/My_Work/Docker_Container/Script/Redis/Config/redis-32016.conf:/opt/bitnami/redis/mounted-etc/redis.conf bitnami/redis:6.0.4
+
+docker run -d --name anyid_redis_wt_pw_sentinel_1 -p 32514:32514 -e REDIS_MASTER_HOST=172.31.48.1 -e REDIS_MASTER_PORT_NUMBER=32014 -e REDIS_SENTINEL_PORT_NUMBER=32514 -e REDIS_MASTER_PASSWORD=P@ssw0rd -e REDIS_SENTINEL_PASSWORD=P@ssw0rd -e REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000 -e REDIS_SENTINEL_FAILOVER_TIMEOUT=5000  bitnami/redis-sentinel:6.0.4
+docker run -d --name anyid_redis_wt_pw_sentinel_2 -p 32515:32515 -e REDIS_MASTER_HOST=172.31.48.1 -e REDIS_MASTER_PORT_NUMBER=32014 -e REDIS_SENTINEL_PORT_NUMBER=32515 -e REDIS_MASTER_PASSWORD=P@ssw0rd -e REDIS_SENTINEL_PASSWORD=P@ssw0rd -e REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000 -e REDIS_SENTINEL_FAILOVER_TIMEOUT=5000  bitnami/redis-sentinel:6.0.4
+docker run -d --name anyid_redis_wt_pw_sentinel_3 -p 32516:32516 -e REDIS_MASTER_HOST=172.31.48.1 -e REDIS_MASTER_PORT_NUMBER=32014 -e REDIS_SENTINEL_PORT_NUMBER=32516 -e REDIS_MASTER_PASSWORD=P@ssw0rd -e REDIS_SENTINEL_PASSWORD=P@ssw0rd -e REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000 -e REDIS_SENTINEL_FAILOVER_TIMEOUT=5000  bitnami/redis-sentinel:6.0.4
+

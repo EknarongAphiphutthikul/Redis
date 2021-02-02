@@ -1,0 +1,87 @@
+version: '2'
+
+services:
+  anyid_redis_wt_pw_master:
+    image: bitnami/redis:6.0.4
+    ports:
+      - '32014:32014'
+    environment:
+      - REDIS_PASSWORD=P@ssw0rd
+      - REDIS_REPLICATION_MODE=master
+    volumes:
+      - D:\My_Work\Docker_Container\Script\Redis\Config\redis-32014.conf:/opt/bitnami/redis/mounted-etc/redis.conf
+  
+  anyid_redis_wt_pw_slave_1:
+    image: bitnami/redis:6.0.4
+    ports:
+      - '32015:32015'
+    environment:
+      - REDIS_MASTER_PASSWORD=P@ssw0rd
+      - REDIS_PASSWORD=P@ssw0rd
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_HOST=172.19.240.1
+      - REDIS_MASTER_PORT_NUMBER=32014
+    volumes:
+      - D:\My_Work\Docker_Container\Script\Redis\Config\redis-32015.conf:/opt/bitnami/redis/mounted-etc/redis.conf
+    depends_on:
+      - anyid_redis_wt_pw_master
+      
+  anyid_redis_wt_pw_slave_2:
+    image: bitnami/redis:6.0.4
+    ports:
+      - '32016:32016'
+    environment:
+      - REDIS_MASTER_PASSWORD=P@ssw0rd
+      - REDIS_PASSWORD=P@ssw0rd
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_HOST=172.19.240.1
+      - REDIS_MASTER_PORT_NUMBER=32014
+    volumes:
+      - D:\My_Work\Docker_Container\Script\Redis\Config\redis-32016.conf:/opt/bitnami/redis/mounted-etc/redis.conf
+    depends_on:
+      - anyid_redis_wt_pw_master
+
+  anyid_redis_wt_pw_sentinel_1:
+    image: bitnami/redis-sentinel:6.0.4
+    ports:
+      - '32514:32514'
+    environment:
+      - REDIS_MASTER_HOST=172.19.240.1
+      - REDIS_MASTER_PORT_NUMBER=32014
+      - REDIS_MASTER_PASSWORD=P@ssw0rd
+      - REDIS_SENTINEL_PORT_NUMBER=32514
+      - REDIS_SENTINEL_PASSWORD=P@ssw0rd
+      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000
+      - REDIS_SENTINEL_FAILOVER_TIMEOUT=5000
+    depends_on:
+      - anyid_redis_wt_pw_master
+      
+  anyid_redis_wt_pw_sentinel_2:
+    image: bitnami/redis-sentinel:6.0.4
+    ports:
+      - '32515:32515'
+    environment:
+      - REDIS_MASTER_HOST=172.19.240.1
+      - REDIS_MASTER_PORT_NUMBER=32014
+      - REDIS_MASTER_PASSWORD=P@ssw0rd
+      - REDIS_SENTINEL_PORT_NUMBER=32515
+      - REDIS_SENTINEL_PASSWORD=P@ssw0rd
+      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000
+      - REDIS_SENTINEL_FAILOVER_TIMEOUT=5000
+    depends_on:
+      - anyid_redis_wt_pw_master
+      
+  anyid_redis_wt_pw_sentinel_3:
+    image: bitnami/redis-sentinel:6.0.4
+    ports:
+      - '32516:32516'
+    environment:
+      - REDIS_MASTER_HOST=172.19.240.1
+      - REDIS_MASTER_PORT_NUMBER=32014
+      - REDIS_MASTER_PASSWORD=P@ssw0rd
+      - REDIS_SENTINEL_PORT_NUMBER=32516
+      - REDIS_SENTINEL_PASSWORD=P@ssw0rd
+      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000
+      - REDIS_SENTINEL_FAILOVER_TIMEOUT=5000
+    depends_on:
+      - anyid_redis_wt_pw_master

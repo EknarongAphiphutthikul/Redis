@@ -19,7 +19,7 @@ services:
       - REDIS_MASTER_PASSWORD=P@ssw0rd
       - REDIS_PASSWORD=P@ssw0rd
       - REDIS_REPLICATION_MODE=slave
-      - REDIS_MASTER_HOST=192.168.0.36
+      - REDIS_MASTER_HOST=169.254.19.249
       - REDIS_MASTER_PORT_NUMBER=32014
     volumes:
       - D:\My_Work\Docker_Container\Script\Redis\Config\redis-32015.conf:/opt/bitnami/redis/mounted-etc/redis.conf
@@ -34,7 +34,7 @@ services:
       - REDIS_MASTER_PASSWORD=P@ssw0rd
       - REDIS_PASSWORD=P@ssw0rd
       - REDIS_REPLICATION_MODE=slave
-      - REDIS_MASTER_HOST=192.168.0.36
+      - REDIS_MASTER_HOST=169.254.19.249
       - REDIS_MASTER_PORT_NUMBER=32014
     volumes:
       - D:\My_Work\Docker_Container\Script\Redis\Config\redis-32016.conf:/opt/bitnami/redis/mounted-etc/redis.conf
@@ -46,7 +46,7 @@ services:
     ports:
       - '32514:32514'
     environment:
-      - REDIS_MASTER_HOST=192.168.0.36
+      - REDIS_MASTER_HOST=169.254.19.249
       - REDIS_MASTER_PORT_NUMBER=32014
       - REDIS_MASTER_PASSWORD=P@ssw0rd
       - REDIS_SENTINEL_PORT_NUMBER=32514
@@ -61,7 +61,7 @@ services:
     ports:
       - '32515:32515'
     environment:
-      - REDIS_MASTER_HOST=192.168.0.36
+      - REDIS_MASTER_HOST=169.254.19.249
       - REDIS_MASTER_PORT_NUMBER=32014
       - REDIS_MASTER_PASSWORD=P@ssw0rd
       - REDIS_SENTINEL_PORT_NUMBER=32515
@@ -76,7 +76,7 @@ services:
     ports:
       - '32516:32516'
     environment:
-      - REDIS_MASTER_HOST=192.168.0.36
+      - REDIS_MASTER_HOST=169.254.19.249
       - REDIS_MASTER_PORT_NUMBER=32014
       - REDIS_MASTER_PASSWORD=P@ssw0rd
       - REDIS_SENTINEL_PORT_NUMBER=32516
